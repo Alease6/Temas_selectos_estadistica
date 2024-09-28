@@ -1,0 +1,12 @@
+//Find the longest time that an employee has been at the studio
+SELECT max(years_employed) FROM employees
+
+//For each role, find the average number of years employed by employees in that role
+SELECT role, AVG(years_employed)as Averange_numeber_of_years
+FROM employees 
+group by role
+
+//Find the total number of employee years worked in each building
+SELECT building, sum(years_employed) as total_years_worked
+FROM employees 
+group by building

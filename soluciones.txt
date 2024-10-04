@@ -1,0 +1,62 @@
+#######################################################################################################################################
+# Teoría
+
+1. En el comando: git commit -m "mensaje", ¿Para qué sirve la bandera -m?
+#b) Especifica el mensaje del commit directamente desde la línea de comandos.--------------------------------------------------------------------------------------------------------------------------------------
+
+2. ¿En qué casos se usan la 4ta y 5ta forma normal?
+#a)Como excepciones o casos avanzados que van más allá de las primeras tres formas normales.--------------------------------------------------------------------------------------------------------------------------------------
+
+3. ¿En qué forma normal se eliminan los grupos repetidos?
+#En la  1NF
+ ------------------------------------------------------------------------------------------------------------------------------------
+
+4. Explica la diferencia entre la cláusula WHERE y la cláusula HAVING.
+#HAVING filtra los registros que se han agrupado mediante un "group by", mientras que WHERE agrupa valores que tienen mismos valores en los registros; de tal manera que:
+HAVING se utiliza para grupos
+WHERE se utiliza para filas individuales
+--------------------------------------------------------------------------------------------------------------------------------------
+
+5.c) FROM -> WHERE -> SELECT -> ORDER BY
+
+#######################################################################################################################################
+# Práctica
+
+1.
+
+```SQL
+-- poner solución debajo de este mensaje
+select nombre_materia, AVG(calificacion) as promedio_calificacion
+from calificaciones
+where calificacion is not NULL
+group by nombre_materia
+order by promedio_calificacion DESC
+
+```
+
+2.
+
+```SQL
+-- poner solución debajo de este mensaje
+select DISTINCT nombre,apellido
+FROM alumnos
+JOIN calificaciones
+on alumnos.expediente=calificaciones.expediente
+where calificacion is not NULL
+order by apellido ASC
+
+```
+
+3.
+
+```SQL
+-- poner solución debajo de este mensaje
+select nombre,apellido, max(calificacion) as calificacion_maxima
+FROM alumnos
+JOIN calificaciones
+on alumnos.expediente=calificaciones.expediente
+where calificacion is not NULL
+group by nombre
+
+
+```

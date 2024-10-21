@@ -1,0 +1,44 @@
+#Data review
+import os
+import pandas as pd
+import matplotlib.pyplot as plt
+#TAREA 
+#Create Moving Average function.
+#Not use rolling method.
+read_dir = r'C:\Users\aleas\Documents\tse\parcial II'
+file_name = 'AirPassengers.csv'
+read_path = os.path.join(read_dir, file_name)
+data = pd.read_csv(read_path) #pandas descarga el csv y lo pone como un dataframe 
+data.columns = ['month', 'n_passengers']
+data = data.set_index('month')
+data.index = pd.to_datetime(data.index)
+data.head()
+data.plot()
+plt.show()
+# Crear la función de media móvil
+def media_movil_slide(datos, ventana): #definimos los parámetros
+    medias = [] #lista vacia que se llena conforme el bucle ocurre 
+    n = len(datos) #nos dice cuantos datos tenemos
+    
+    for i in range(n): #itera cada índice de la lista de datos
+        if i < ventana - 1:
+            medias.append(None)  # No hay suficientes datos
+        else:
+            ventana_datos = datos[i - ventana + 1:i + 1] #muestra los elementos a los cuales se les aplicará la media (como sublista)
+            #ventana_datos = datos[0 - 3 + 1:0 + 1]  # datos[-2:1] si i=0
+            #ventana_datos = datos[2 - 3 + 1:2 + 1]  # datos[0:3] si i=2---->ventana_datos = [112, 118, 132]  # Tres elementos
+            #ventana_datos = datos[3 - 3 + 1:3 + 1]  # datos[1:4] si i=3---->ventana_datos = [118, 132, 129]  # Tres elementos
+            media = sum(ventana_datos) / ventana
+            medias.append(media) #Al finalizar el bucle, la función devuelve la lista medias, que contiene las medias móviles calculadas.
+     
+    return medias
+
+# Tamaño de la ventana
+ventana = 3  # Cambia este valor según sea necesario
+data['Media Móvil'] = media_movil_slide(data['n_passengers'], ventana) #Se llama a la función media_movil_slide con la columna n_passengers del DataFrame data, y se asigna el resultado a una nueva columna llamada Media Móvil.
+
+# Mostrar el DataFrame
+print(data.head())
+data.tail(3) #me da los valores de los últimos 3
+data.plot()
+plt.show()
